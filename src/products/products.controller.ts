@@ -14,6 +14,8 @@ import {
 import { ProductsService } from './products.service';
 
 import { CreateProductDTO } from './dto/products.dto';
+import { Roles } from 'src/decorators';
+import { Role } from 'src/rol.enum';
 
 @Controller('products')
 export class ProductsController {
@@ -21,6 +23,7 @@ export class ProductsController {
 
   //Ruta para obtener todos los productos
   //Get All
+  @Roles(Role.Admin, Role.User)
   @Get('/')
   async getAllProducts(@Res() res) {
     const products = await this.productsService.getProducts();
@@ -32,6 +35,7 @@ export class ProductsController {
 
   //Ruta para obtener un producto
   //Get one
+  @Roles(Role.User, Role.Admin)
   @Get('/:id')
   async getProduct(@Res() res, @Param('id') id: string) {
     const product = await this.productsService.getProduct(id);
@@ -46,6 +50,7 @@ export class ProductsController {
 
   //Ruta para crear un producto
   //Post Create
+  @Roles(Role.Admin)
   @Post('/create')
   async createProduct(@Res() res, @Body() productCreate: CreateProductDTO) {
     const product = await this.productsService.createProduct(productCreate);
@@ -57,6 +62,7 @@ export class ProductsController {
 
   //Ruta para actualizar un producto
   //Put Update
+  @Roles(Role.Admin)
   @Put('/update')
   async updateProduct(
     @Res() res,
@@ -78,6 +84,7 @@ export class ProductsController {
 
   //Ruta para eliminar un producto
   //Delete Delete
+  @Roles(Role.Admin)
   @Delete('/delete')
   async deleteProduct(@Res() res, @Query('id') id: string) {
     const product = await this.productsService.deleteProduct(id);
