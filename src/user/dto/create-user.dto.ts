@@ -17,6 +17,7 @@ export class CreateUserDto {
   @MinLength(6)
   readonly password: string;
 
+  //13.3.1
   //propiedad: rol del usuario
   //importante para validar acciones del usuario
   @IsString()

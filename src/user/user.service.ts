@@ -11,6 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 export class UserService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
+    //10.2.1 instanciacion del servicio de JWT
     private jwtService: JwtService,
   ) {}
 
@@ -32,6 +33,7 @@ export class UserService {
 
   async loginUser(email: string, password: string) {
     try {
+      //10.1.2 configuracion del metodo loginUser
       //buscar que el correo existe en la base de datos
       const user = await this.userModel.findOne({ email });
       const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -46,10 +48,12 @@ export class UserService {
         // const { email, name } = user;
         // return { email, name };
 
+        //10.2.2 Refactorizacion del loginUser
         const payload = {
           sub: user._id,
           email: user.email,
           name: user.name,
+          //13.4.1
           roles: user.roles,
         };
         return { access_token: await this.jwtService.signAsync(payload) };

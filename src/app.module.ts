@@ -22,10 +22,12 @@ import { RolesGuard } from './user/roles/roles.guard';
   controllers: [AppController],
   providers: [
     AppService,
+    //12.1.1
     {
       provide: 'APP_GUARD',
       useClass: UserGuard,
     },
+    //13.5.1
     {
       provide: 'APP_GUARD',
       useClass: RolesGuard,

@@ -17,13 +17,16 @@ import { Public } from 'src/decorators';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  //12.4.1
   @Public()
   @Post('/register')
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
+  //12.4.1
   @Public()
+  //10.1.1 ruta post en el controlador para hacer login
   @Post('/login')
   login(@Body() createUserDto: CreateUserDto) {
     const { email, password } = createUserDto;

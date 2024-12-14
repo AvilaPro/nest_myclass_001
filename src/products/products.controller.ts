@@ -33,9 +33,10 @@ export class ProductsController {
     });
   }
 
+  //13.5.2
+  @Roles(Role.User, Role.Admin)
   //Ruta para obtener un producto
   //Get one
-  @Roles(Role.User, Role.Admin)
   @Get('/:id')
   async getProduct(@Res() res, @Param('id') id: string) {
     const product = await this.productsService.getProduct(id);
@@ -48,9 +49,10 @@ export class ProductsController {
     });
   }
 
+  //13.5.2
+  @Roles(Role.Admin)
   //Ruta para crear un producto
   //Post Create
-  @Roles(Role.Admin)
   @Post('/create')
   async createProduct(@Res() res, @Body() productCreate: CreateProductDTO) {
     const product = await this.productsService.createProduct(productCreate);
@@ -60,9 +62,10 @@ export class ProductsController {
     });
   }
 
+  //13.5.2
+  @Roles(Role.Admin)
   //Ruta para actualizar un producto
   //Put Update
-  @Roles(Role.Admin)
   @Put('/update')
   async updateProduct(
     @Res() res,
@@ -82,9 +85,10 @@ export class ProductsController {
     });
   }
 
+  //13.5.2
+  @Roles(Role.Admin)
   //Ruta para eliminar un producto
   //Delete Delete
-  @Roles(Role.Admin)
   @Delete('/delete')
   async deleteProduct(@Res() res, @Query('id') id: string) {
     const product = await this.productsService.deleteProduct(id);
